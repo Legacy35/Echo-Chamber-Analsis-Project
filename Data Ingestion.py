@@ -1,8 +1,8 @@
-import requests
 import csv
 
-from psaw import PushshiftAPI
 import pandas as pd
+import requests
+from psaw import PushshiftAPI
 
 
 def raw_response():
@@ -43,6 +43,17 @@ def get_comments(filename="Conservative.csv", subreddit="conservative", limit=10
     gen = api.search_comments(subreddit=subreddit,
                               filter=["id", "created_utc", "score", "parent_id", "body", "permalink"], limit=limit)
     df = pd.DataFrame(data.d_ for data in gen)
+    # Match the other code
+    df.rename(columns={"id": "Id",
+                       "created_utc": "Date_Created_Utc",
+                       "score": "Score",
+                       "parent_id": "Parent_id",
+                       "body": "Body",
+                       "permalink": "Link"}, inplace=True)
+    # Add empty rows
+    df = pd.concat([df, pd.DataFrame(columns=["Mentioned Nouns",
+                                              "Sentiment-Subjectivity", "Sentiment-Polarization",
+                                              "Hate Speech Level"])])
     df.to_csv(filename, index=False)
 
 
