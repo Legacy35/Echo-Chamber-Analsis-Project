@@ -1,4 +1,4 @@
-# Echo-Chamber-Analsis-Project
+# Echo-Chamber-Analysis-Project
 ML and Network analytics Project
 
 ## Setup
