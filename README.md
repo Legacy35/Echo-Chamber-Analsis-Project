@@ -7,7 +7,7 @@ ML and Network analytics Project
 ```
 $ python -m venv .venv
 $ source .venv/bin/activate
-$ pip install psaw
+$ pip install psaw pandas
 ```
 
 ## CLI
