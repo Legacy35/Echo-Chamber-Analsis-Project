@@ -7,7 +7,12 @@ ML and Network analytics Project
 ```
 $ python -m venv .venv
 $ source .venv/bin/activate
-$ pip install psaw pandas
+$ pip install psaw
+$ pip install -U setuptools wheel
+$ pipinstall -U spacy
+$ python -m spacy download en_core_web_sm
+$ pip install spacytextblob
+$ python -m textblob.download_corpora
 ```
 
 ## CLI
