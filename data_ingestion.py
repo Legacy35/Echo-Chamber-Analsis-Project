@@ -47,4 +47,4 @@ def get_comments(filename="Conservative.csv", subreddit="conservative", limit=10
 
 
 if __name__ == "__main__":
-    get_comments()
+    get_comments(limit=1000)
