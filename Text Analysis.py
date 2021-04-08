@@ -10,15 +10,16 @@ nlp.add_pipe('spacytextblob')
 # Load csv file to dataframe data
 data = pd.read_csv('Conservative.csv')
 
-# Delete any [removed] or [deleted] data
-data.drop(data.index[data['Body'] == '[removed]'], inplace = True)
-data.drop(data.index[data['Body'] == '[deleted]'], inplace = True)
-
 # Change the Mentioned Nouns column to be a string instead of float
 data['Mentioned Nouns'] = data['Mentioned Nouns'].astype(str)
 
 # Iterate through the csv, feeding each string to spacy and setting the corresponding columns
 for i in range(data.shape[0] - 1):
+    if data.at[i, 'Body'] == '[removed]' or data.at[i, 'Body'] == '[deleted]':
+        data.at[i, 'Sentiment-Subjectivity'] = 0
+        data.at[i, 'Sentiment-Polarization'] = 0
+        data.at[i, 'Mentioned Nouns'] = ''
+
     doc = nlp(data['Body'].iloc[i])
     data.at[i, 'Sentiment-Subjectivity'] = doc._.subjectivity
     data.at[i, 'Sentiment-Polarization'] = doc._.polarity
