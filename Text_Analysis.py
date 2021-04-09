@@ -19,8 +19,11 @@ def run_data_analysis(filename):
 
     # Iterate through the csv, feeding each string to spacy and setting the corresponding columns
     for i in range(data.shape[0] - 1):
+        # Load body with the body of the comment and tokenize it, put it in doc
         body = data["Body"].iloc[i]
         doc = nlp(body)
+
+        # If comment is removed, deleted, or written by a bot, set everything to 0 or empty
         if (
             data.at[i, "Body"] == "[removed]"
             or data.at[i, "Body"] == "[deleted]"
@@ -31,7 +34,9 @@ def run_data_analysis(filename):
             data.at[i, "Mentioned Nouns"] = ""
             data.at[i, "Hate Speech Level"] = 0
 
+        # If not removed, deleted, or written by a bot, then analyze it
         else:
+            # Hate sonar stuff
             sonar = Sonar()
             if sonar.ping(body)["top_class"] == "neither":
                 topclass = 0
@@ -41,9 +46,11 @@ def run_data_analysis(filename):
                 topclass = 2
             data.at[i, "Hate Speech Level"] = topclass
 
+            # Set the subjectivity and polarity with the automatically calculated texblob values
             data.at[i, "Sentiment-Subjectivity"] = doc._.subjectivity
             data.at[i, "Sentiment-Polarization"] = doc._.polarity
 
+            # All allowed entities to be put in mentioned nouns
             allowed_entities = [
                 "PERSON",
                 "ORG",
@@ -59,14 +66,24 @@ def run_data_analysis(filename):
 
             nouns = []
 
+            # Get all nouns with the allowed entities, put it in nouns
             for ent in doc.ents:
                 if ent.label_ in allowed_entities and ent.text not in nouns:
                     nouns.append(ent.text)
 
+            # Get all noun phrases and put it in nouns, remove any stop words and punctiation, they're just noise
+            phrases = []
             for phrase in doc.noun_chunks:
-                if phrase.text not in nouns and phrase.text.lower() != 'i':
-                    nouns.append(phrase.text)
+                for word in phrase:
+                    if not word.is_stop and not word.is_punct:
+                        phrases.append(word.text)
 
+                if phrases:
+                    if phrases[0] not in nouns and phrases[0].lower() != 'i':
+                        nouns.append(' '.join(phrases))
+                phrases = []
+
+            # Get all pronouns that aren't me, myself, and I
             for token in doc:
                 if (
                     token.pos_ == "PROPN"
@@ -77,11 +94,11 @@ def run_data_analysis(filename):
                     if data.at[i, "Parent_id"] not in nouns:
                         nouns.append(data.at[i, "Parent_id"])
 
+            # Pour the nouns in the column
             data.at[i, "Mentioned Nouns"] = ", ".join(nouns)
 
-    data = data.filter(['Body', 'Mentioned Nouns'], axis = 1)
     # Output to this csv for now
-    data.to_csv('After.csv', index=False)
+    data.to_csv(filename, index=False)
     print("Completed the Analysis of " + filename)
 
 
