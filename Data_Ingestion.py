@@ -3,9 +3,11 @@ import csv
 import pandas as pd
 import requests
 from psaw import PushshiftAPI
+from Text_Analysis import run_data_analysis
 
 def get_comments(subreddit="conservative", limit=100):
     filename= subreddit+".csv"
+    print("Begining to Create "+filename)
     api = PushshiftAPI()
     gen = api.search_comments(subreddit=subreddit,
                               filter=["id", "created_utc", "score", "parent_id", "body", "permalink"], limit=limit)
@@ -22,6 +24,8 @@ def get_comments(subreddit="conservative", limit=100):
                                               "Sentiment-Subjectivity", "Sentiment-Polarization",
                                               "Hate Speech Level"])])
     df.to_csv(filename, index=False)
+    print("Completed Creating "+filename)
+    run_data_analysis(filename)
 
 if __name__ == "__main__":
     get_comments(subreddit="conservative", limit=100000)
