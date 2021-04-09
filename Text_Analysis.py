@@ -4,11 +4,13 @@ from spacytextblob.spacytextblob import SpacyTextBlob
 from hatesonar import Sonar
 import pandas as pd
 
+
 def run_data_analysis(filename):
     print("Begining to Analyze "+ filename)
+
     # Load model and load textblob into pipeline
-    nlp = spacy.load('en_core_web_sm')
-    nlp.add_pipe('spacytextblob')
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("spacytextblob")
 
     # Load csv file to dataframe data
     data = pd.read_csv(filename)
@@ -49,9 +51,10 @@ def run_data_analysis(filename):
             
             data.at[i, 'Mentioned Nouns'] = ', '.join(nouns)
 
+
     # Output to this csv for now
     data.to_csv(filename, index=False)
-    print("Completed the Analysis of "+ filename)
+    print("Completed the Analysis of " + filename)
 
     if __name__ == "__main__":
         run_data_analysis()
