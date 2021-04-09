@@ -13,6 +13,8 @@ $ pip install -U spacy
 $ python -m spacy download en_core_web_sm
 $ pip install spacytextblob
 $ python -m textblob.download_corpora
+$ pip install hatesonar
+$ pip install scikit-learn==0.23
 ```
 
 ## CLI
