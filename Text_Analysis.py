@@ -44,7 +44,18 @@ def run_data_analysis(filename):
             data.at[i, "Sentiment-Subjectivity"] = doc._.subjectivity
             data.at[i, "Sentiment-Polarization"] = doc._.polarity
 
-            allowed_entities = ['PERSON', 'ORG', 'WORK_OF_ART', 'GPE', 'NORG', 'LOC', 'LAW', 'LANGUAGE', 'PRODUCT', 'FAC']
+            allowed_entities = [
+                "PERSON",
+                "ORG",
+                "WORK_OF_ART",
+                "GPE",
+                "NORG",
+                "LOC",
+                "LAW",
+                "LANGUAGE",
+                "PRODUCT",
+                "FAC",
+            ]
 
             nouns = []
 
@@ -53,14 +64,19 @@ def run_data_analysis(filename):
                     nouns.append(ent.text)
 
             for token in doc:
-                if token.ent_type_ == '':
-                    if token.pos_ == 'NOUN' and token.text not in nouns:
+                if token.ent_type_ == "":
+                    if token.pos_ == "NOUN" and token.text not in nouns:
                         nouns.append(token.text)
 
-                    if token.pos_ == 'PROPN' and token.text.lower() != 'me' and token.text.lower() != 'myself' and token.text.lower() != 'i':
-                        if data.at[i, 'Parent_id'] not in nouns:
-                            nouns.append(data.at[i, 'Parent_id'])
-                            
+                    if (
+                        token.pos_ == "PROPN"
+                        and token.text.lower() != "me"
+                        and token.text.lower() != "myself"
+                        and token.text.lower() != "i"
+                    ):
+                        if data.at[i, "Parent_id"] not in nouns:
+                            nouns.append(data.at[i, "Parent_id"])
+
             data.at[i, "Mentioned Nouns"] = ", ".join(nouns)
 
     # Output to this csv for now
