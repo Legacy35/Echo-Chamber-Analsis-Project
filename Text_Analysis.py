@@ -30,6 +30,7 @@ def run_data_analysis(filename):
             data.at[i, "Sentiment-Polarization"] = 0
             data.at[i, "Mentioned Nouns"] = ""
             data.at[i, "Hate Speech Level"] = 0
+
         else:
             sonar = Sonar()
             if sonar.ping(body)["top_class"] == "neither":
@@ -43,15 +44,23 @@ def run_data_analysis(filename):
             data.at[i, "Sentiment-Subjectivity"] = doc._.subjectivity
             data.at[i, "Sentiment-Polarization"] = doc._.polarity
 
-            nouns = []
-            for token in doc:
-                if token.pos_ == "NOUN":
-                    if token.text not in nouns:
-                        nouns.append(token.text)
-                if token.pos_ == "PROPN" and token.text != "me" and token.text != "myself" and token.text != "I":
-                    if data.at[i, "Parent_id"] not in nouns:
-                        nouns.append(data.at[i, "Parent_id"])
+            allowed_entities = ['PERSON', 'ORG', 'WORK_OF_ART', 'GPE', 'NORG', 'LOC', 'LAW', 'LANGUAGE', 'PRODUCT', 'FAC']
 
+            nouns = []
+
+            for ent in doc.ents:
+                if ent.label_ in allowed_entities:
+                    nouns.append(ent.text)
+
+            for token in doc:
+                if token.ent_type_ == '':
+                    if token.pos_ == 'NOUN' and token.text not in nouns:
+                        nouns.append(token.text)
+
+                    if token.pos_ == 'PROPN' and token.text.lower() != 'me' and token.text.lower() != myself and tokent.text.lower() != 'i':
+                        if data.at[i, 'Parent_id'] not in nouns:
+                            nouns.append(data.at[i, 'Parent_id'])
+                            
             data.at[i, "Mentioned Nouns"] = ", ".join(nouns)
 
     # Output to this csv for now
