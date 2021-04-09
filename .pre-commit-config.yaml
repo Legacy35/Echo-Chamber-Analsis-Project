@@ -1,4 +1,4 @@
-exclude: '.venv|.git'
+exclude: '.venv|.git|.csv'
 default_stages: [commit]
 fail_fast: true
 repos:
