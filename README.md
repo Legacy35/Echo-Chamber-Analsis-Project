@@ -14,6 +14,7 @@ python -m textblob.download_corpora
 
 Check code before committing with pre-commits
 ```bash
+source .venv/bin/activate
 pip install pre-commit
 pre-commit install
 # Run on all files
