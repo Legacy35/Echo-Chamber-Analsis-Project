@@ -49,7 +49,7 @@ def run_data_analysis(filename):
             nouns = []
 
             for ent in doc.ents:
-                if ent.label_ in allowed_entities:
+                if ent.label_ in allowed_entities and ent.text not in nouns:
                     nouns.append(ent.text)
 
             for token in doc:
@@ -57,7 +57,7 @@ def run_data_analysis(filename):
                     if token.pos_ == 'NOUN' and token.text not in nouns:
                         nouns.append(token.text)
 
-                    if token.pos_ == 'PROPN' and token.text.lower() != 'me' and token.text.lower() != myself and tokent.text.lower() != 'i':
+                    if token.pos_ == 'PROPN' and token.text.lower() != 'me' and token.text.lower() != 'myself' and token.text.lower() != 'i':
                         if data.at[i, 'Parent_id'] not in nouns:
                             nouns.append(data.at[i, 'Parent_id'])
                             
