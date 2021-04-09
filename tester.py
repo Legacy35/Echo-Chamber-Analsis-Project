@@ -15,9 +15,7 @@ data = pd.read_csv("Conservative.csv")
 data["Mentioned Nouns"] = data["Mentioned Nouns"].astype(str)
 # data['Entities'] = data['Mentioned Nouns']
 
-data.drop(
-    ["Id", "Date_Created_Utc", "Score", "Parent_id", "Link"], axis=1, inplace=True
-)
+data.drop(["Id", "Date_Created_Utc", "Score", "Parent_id", "Link"], axis=1, inplace=True)
 
 for i in range(data.shape[0] - 1):
     if data.at[i, "Body"] == "[removed]" or data.at[i, "Body"] == "[deleted]":

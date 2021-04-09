@@ -24,8 +24,7 @@ def run_data_analysis(filename):
         if (
             data.at[i, "Body"] == "[removed]"
             or data.at[i, "Body"] == "[deleted]"
-            or "I am a bot, and this action was performed automatically."
-            in data.at[i, "Body"]
+            or "I am a bot, and this action was performed automatically." in data.at[i, "Body"]
         ):
             data.at[i, "Sentiment-Subjectivity"] = 0
             data.at[i, "Sentiment-Polarization"] = 0
@@ -49,12 +48,7 @@ def run_data_analysis(filename):
                 if token.pos_ == "NOUN":
                     if token.text not in nouns:
                         nouns.append(token.text)
-                if (
-                    token.pos_ == "PROPN"
-                    and token.text != "me"
-                    and token.text != "myself"
-                    and token.text != "I"
-                ):
+                if token.pos_ == "PROPN" and token.text != "me" and token.text != "myself" and token.text != "I":
                     if data.at[i, "Parent_id"] not in nouns:
                         nouns.append(data.at[i, "Parent_id"])
 
