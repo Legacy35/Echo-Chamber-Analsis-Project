@@ -5,6 +5,9 @@ ML and Network analytics Project
 
 ```bash
 python -m venv .venv
+# Windows
+source .venv/Scripts/activate
+# Linux
 source .venv/bin/activate
 pip install -U setuptools wheel
 pip install -r requirements.txt
@@ -14,6 +17,9 @@ python -m textblob.download_corpora
 
 Check code before committing with pre-commits
 ```bash
+# Windows
+source .venv/Scripts/activate
+# Linux
 source .venv/bin/activate
 pip install pre-commit
 pre-commit install
