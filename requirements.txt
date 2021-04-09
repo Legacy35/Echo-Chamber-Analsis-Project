@@ -4,4 +4,5 @@ psaw~=0.1.0
 spacy~=3.0.5
 spacytextblob~=3.0
 hatesonar
-scikit-learn==0.23
+numpy~=1.20.2
+scikit-learn~=0.23
