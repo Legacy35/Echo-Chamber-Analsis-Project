@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def run_data_analysis(filename):
-    print("Begining to Analyze " + filename)
+    print("Beginning to Analyze " + filename)
 
     # Load model and load textblob into pipeline
     nlp = spacy.load("en_core_web_sm")
@@ -63,26 +63,27 @@ def run_data_analysis(filename):
                 if ent.label_ in allowed_entities and ent.text not in nouns:
                     nouns.append(ent.text)
 
-            for token in doc:
-                if token.ent_type_ == "":
-                    if token.pos_ == "NOUN" and token.text not in nouns:
-                        nouns.append(token.text)
+            for phrase in doc.noun_chunks:
+                if phrase.text not in nouns and phrase.text.lower() != 'i':
+                    nouns.append(phrase.text)
 
-                    if (
-                        token.pos_ == "PROPN"
-                        and token.text.lower() != "me"
-                        and token.text.lower() != "myself"
-                        and token.text.lower() != "i"
-                    ):
-                        if data.at[i, "Parent_id"] not in nouns:
-                            nouns.append(data.at[i, "Parent_id"])
+            for token in doc:
+                if (
+                    token.pos_ == "PROPN"
+                    and token.text.lower() != "me"
+                    and token.text.lower() != "myself"
+                    and token.text.lower() != "i"
+                ):
+                    if data.at[i, "Parent_id"] not in nouns:
+                        nouns.append(data.at[i, "Parent_id"])
 
             data.at[i, "Mentioned Nouns"] = ", ".join(nouns)
 
+    data = data.filter(['Body', 'Mentioned Nouns'], axis = 1)
     # Output to this csv for now
-    data.to_csv(filename, index=False)
+    data.to_csv('After.csv', index=False)
     print("Completed the Analysis of " + filename)
 
 
 if __name__ == "__main__":
-    run_data_analysis()
+    run_data_analysis('Conservative.csv')
