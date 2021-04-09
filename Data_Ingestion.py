@@ -28,4 +28,4 @@ def get_comments(subreddit="conservative", limit=100):
     run_data_analysis(filename)
 
 if __name__ == "__main__":
-    get_comments(subreddit="conservative", limit=100000)
+    get_comments(subreddit="conservative", limit=100)

@@ -1,10 +1,11 @@
 import spacy
 from spacy import displacy
 from spacytextblob.spacytextblob import SpacyTextBlob
+from hatesonar import Sonar
 import pandas as pd
 
 def run_data_analysis(filename = "Conservative.csv"):
-    Print("Begining to Analyze "+ filename)
+    print("Begining to Analyze "+ filename)
     # Load model and load textblob into pipeline
     nlp = spacy.load('en_core_web_sm')
     nlp.add_pipe('spacytextblob')
@@ -22,9 +23,20 @@ def run_data_analysis(filename = "Conservative.csv"):
             data.at[i, 'Sentiment-Polarization'] = 0
             data.at[i, 'Mentioned Nouns'] = ''
 
+        body = data['Body'].iloc[i]
         doc = nlp(data['Body'].iloc[i])
+
         data.at[i, 'Sentiment-Subjectivity'] = doc._.subjectivity
         data.at[i, 'Sentiment-Polarization'] = doc._.polarity
+
+        if sonar.ping(body)['top_class'] == 'neither':
+            topclass=0
+        elif sonar.ping(body)['top_class'] == 'offensive_language':
+            topclass=1
+        elif sonar.ping(body)['top_class'] == 'hate_speech':
+            topclass=2
+
+        data.at[i, 'Hate Speech Level'] = topclass
 
         nouns = []
         for token in doc:
@@ -39,4 +51,7 @@ def run_data_analysis(filename = "Conservative.csv"):
 
     # Output to this csv for now
     data.to_csv(filename, index=False)
-    Print("Completed the Analysis of "+ filename)
+    print("Completed the Analysis of "+ filename)
+
+    if __name__ == "__main__":
+        run_data_analysis()
