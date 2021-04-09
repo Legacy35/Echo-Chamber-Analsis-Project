@@ -1,7 +1,6 @@
 import spacy
 import os
-from spacy import displacy
-from spacytextblob.spacytextblob import SpacyTextBlob
+from spacytextblob.spacytextblob import SpacyTextBlob  # noqa: F401
 import pandas as pd
 
 filename = "before.csv"

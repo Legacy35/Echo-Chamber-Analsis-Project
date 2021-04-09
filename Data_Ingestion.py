@@ -1,7 +1,4 @@
-import csv
-
 import pandas as pd
-import requests
 from psaw import PushshiftAPI
 from Text_Analysis import run_data_analysis
 
