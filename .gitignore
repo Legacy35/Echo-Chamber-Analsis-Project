@@ -491,3 +491,9 @@ cython_debug/
 # idea
 .idea/
 stratchpad.ipynb
+
+# Ignore the huge reddit commit pushshift data files
+RC*.bz2
+RC*.json
+RC*.csv
+RC*.7z
