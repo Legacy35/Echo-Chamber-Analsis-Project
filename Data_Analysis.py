@@ -51,7 +51,7 @@ def Data_Analysis(filename):
     print(AverageH)
 
 if __name__ == "__main__":
-    Data_Analysis("conservative.csv")
+    #Data_Analysis("conservative.csv")
     Data_Analysis("lateStageCapitalism.csv")
     Data_Analysis("news.csv")
     Data_Analysis("politics.csv")
