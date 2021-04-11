@@ -2,6 +2,7 @@ import spacy
 from spacytextblob.spacytextblob import SpacyTextBlob  # noqa:F401
 from hatesonar import Sonar
 import pandas as pd
+from multiprocessing import Process
 
 
 def run_data_analysis(filename):
@@ -101,6 +102,6 @@ def run_data_analysis(filename):
     data.to_csv(filename, index=False)
     print("Completed the Analysis of " + filename)
 
-
 if __name__ == "__main__":
     run_data_analysis('Conservative.csv')
+
