@@ -3,6 +3,7 @@ from spacy import displacy
 from spacytextblob.spacytextblob import SpacyTextBlob
 from hatesonar import Sonar
 import pandas as pd
+from multiprocessing import Process
 
 def run_data_analysis(filename):
     print("Begining to Analyze "+ filename)
@@ -53,5 +54,6 @@ def run_data_analysis(filename):
     data.to_csv(filename, index=False)
     print("Completed the Analysis of "+ filename)
 
-    if __name__ == "__main__":
-        run_data_analysis()
+if __name__ == "__main__":
+    # construct a different process for each function
+    run_data_analysis("RC_2016-11_Democrat.csv")
