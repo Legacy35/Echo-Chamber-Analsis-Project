@@ -45,5 +45,10 @@ def get_comments(subreddit="conservative", limit=100):
 
 
 if __name__ == "__main__":
-    #get_comments(subreddit="conservative", limit=10)
-    test=5
+    get_comments(subreddit="conservative", limit=10)
+    get_comments(subreddit="socialism", limit=10)
+    get_comments(subreddit="politics", limit=10)
+    get_comments(subreddit="republican", limit=10)
+    get_comments(subreddit="news", limit=10)
+    get_comments(subreddit="lateStageCapitalism", limit=10)
+
