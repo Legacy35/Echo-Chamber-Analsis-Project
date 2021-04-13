@@ -13,7 +13,7 @@ nlp.add_pipe("spacytextblob")
 data = pd.read_csv("Conservative.csv")
 
 data["Mentioned Nouns"] = data["Mentioned Nouns"].astype(str)
-data['Entities'] = data['Mentioned Nouns']
+data["Entities"] = data["Mentioned Nouns"]
 
 data.drop(["Id", "Date_Created_Utc", "Score", "Parent_id", "Link"], axis=1, inplace=True)
 
@@ -30,21 +30,21 @@ for i in range(data.shape[0] - 1):
     nouns = []
     entities = []
     for ent in doc.ents:
-        if ent.label_ != 'PERCENT' and ent.label_ != '':
+        if ent.label_ != "PERCENT" and ent.label_ != "":
             nouns.append(ent.text)
             entities.append(ent.label_)
 
     for token in doc:
-        if token.ent_type_ == '' and (token.pos_ == 'NOUN' or token.pos_ == 'PRON'):
-            if token.text.lower() != 'i' and token.text.lower() != 'me':
+        if token.ent_type_ == "" and (token.pos_ == "NOUN" or token.pos_ == "PRON"):
+            if token.text.lower() != "i" and token.text.lower() != "me":
                 nouns.append(token.text)
 
-    data.at[i, 'Mentioned Nouns'] = ', '.join(nouns)
-    data.at[i, 'Entities'] = ', '.join(entities)
+    data.at[i, "Mentioned Nouns"] = ", ".join(nouns)
+    data.at[i, "Entities"] = ", ".join(entities)
 
 if os.path.exists(filename):
     os.remove(filename)
 
-data = data.filter(['Body', 'Mentioned Nouns'], axis = 1)
+data = data.filter(["Body", "Mentioned Nouns"], axis=1)
 
 data.to_csv(filename, index=False)

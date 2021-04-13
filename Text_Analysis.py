@@ -79,8 +79,8 @@ def run_data_analysis(filename):
                         phrases.append(word.text)
 
                 if phrases:
-                    if phrases[0] not in nouns and phrases[0].lower() != 'i':
-                        nouns.append(' '.join(phrases))
+                    if phrases[0] not in nouns and phrases[0].lower() != "i":
+                        nouns.append(" ".join(phrases))
                 phrases = []
 
             # Get all pronouns that aren't me, myself, and I
@@ -103,4 +103,4 @@ def run_data_analysis(filename):
 
 
 if __name__ == "__main__":
-    run_data_analysis('Conservative.csv')
+    run_data_analysis("Conservative.csv")
