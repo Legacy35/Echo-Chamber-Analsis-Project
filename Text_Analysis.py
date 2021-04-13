@@ -2,7 +2,6 @@ import spacy
 from spacytextblob.spacytextblob import SpacyTextBlob  # noqa:F401
 from hatesonar import Sonar
 import pandas as pd
-from multiprocessing import Process
 
 
 def run_data_analysis(filename):
@@ -80,8 +79,8 @@ def run_data_analysis(filename):
                         phrases.append(word.text)
 
                 if phrases:
-                    if phrases[0] not in nouns and phrases[0].lower() != 'i':
-                        nouns.append(' '.join(phrases))
+                    if phrases[0] not in nouns and phrases[0].lower() != "i":
+                        nouns.append(" ".join(phrases))
                 phrases = []
 
             # Get all pronouns that aren't me, myself, and I
@@ -102,6 +101,6 @@ def run_data_analysis(filename):
     data.to_csv(filename, index=False)
     print("Completed the Analysis of " + filename)
 
-if __name__ == "__main__":
-    run_data_analysis('Conservative.csv')
 
+if __name__ == "__main__":
+    run_data_analysis("Conservative.csv")

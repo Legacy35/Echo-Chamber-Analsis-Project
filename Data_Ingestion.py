@@ -51,4 +51,3 @@ if __name__ == "__main__":
     get_comments(subreddit="republican", limit=10)
     get_comments(subreddit="news", limit=10)
     get_comments(subreddit="lateStageCapitalism", limit=10)
-
