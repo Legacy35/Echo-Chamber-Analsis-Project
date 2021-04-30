@@ -38,6 +38,6 @@ It will then automatically analyze all the comments after it has pulled all the 
 This outputs a csv file with the subreddits name
 
 Second: `python Data_Analysis.py`
-Run the Data analysis with the file names of csv files recieved from the first part
+Run the Data analysis, in the main method instert the file names of csv files recieved from the first part
 It will then output in console all the data from the subreddit analysis
 
