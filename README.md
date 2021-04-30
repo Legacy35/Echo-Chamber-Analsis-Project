@@ -30,10 +30,6 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-## CLI
-```
-psaw -q "cats" -s askreddit -l 100 -o cats_test.csv
-```
 
 ## Running the code
 First:
