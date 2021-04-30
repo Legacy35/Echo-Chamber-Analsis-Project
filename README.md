@@ -49,3 +49,10 @@ This runs our original method to detect echo chambers on subreddit s.
 It works by looking at the nouns and assigning sentiment to them. Once sentiment is assigned we look at distributions.
 It will then output in console all the data from the subreddit analysis.
 
+# Processing raw Pushshift files
+Currently, we pull data from Reddit using APIs. For grabbing large amounts of information, this is error prone.
+You can easily hit API limits. If you want more data and dont't care about fine grained time ranges, you can 
+download Pushshift files directly from their website. https://files.pushshift.io/reddit/comments/
+
+This is a folder containing monthly dumps of Reddit data. We have a script in `pushshift` to process the uncompressed file.
+Due to size restrictions of github, we didn't upload the several gb's raw data.
