@@ -1,6 +1,9 @@
 # Echo-Chamber-Analysis-Project
 ML and Network analytics Project
 
+The underneath code snippet is meant to setup the enviornment to run the project.
+
+
 ## Setup
 
 ```bash
@@ -31,3 +34,14 @@ pre-commit run --all-files
 ```
 psaw -q "cats" -s askreddit -l 100 -o cats_test.csv
 ```
+
+## Running the code
+First:
+In the Data Ingestion file enter the name of the subreddit and the amount of posts you want to get in the main method
+It will then automatically analyze all the comments after it has pulled all the data
+This outputs a csv file with the subreddits name
+
+Second:
+Run the Data analysis with the file names of csv files recieved from the first part
+It will then output in console all the data from the subreddit analysis
+
