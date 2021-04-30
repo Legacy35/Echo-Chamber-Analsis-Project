@@ -18,7 +18,11 @@ python -m spacy download en_core_web_sm
 python -m textblob.download_corpora
 ```
 
-Check code before committing with pre-commits
+
+# Developing
+
+Check code before committing with pre-commits. This runs a script to auto format code before you commit.
+This is not needed to run the project.
 ```bash
 # Windows
 source .venv/Scripts/activate
